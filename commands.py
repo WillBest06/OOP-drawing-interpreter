@@ -2,23 +2,38 @@ class Command:
     def execute(self, turtle):
         raise NotImplementedError("Child commands need something to execute")
 
-class SquareCommand:
-    def __init__(self):
-        self.dimensions = {sideLength: 100}
+class SquareCommand(Command):
+    def __init__(self, props):
+        self.dimensions = {SIDELENGTH: 100}
+        self.props = props
 
     def execute(self, turtle):
+        borderColour = props.borderColour
+        borderType = props.borderType
+        fillColour = props.fillColour
+
         return
 
-class CircleCommand:
-    def __init__(self):
-        self.dimensions = {diameter: 100}
+class CircleCommand(Command):        
+    def __init__(self, props):
+        self.dimensions = {DIAMETER: 100}
+        self.props = props
 
     def execute(self, turtle):
+        borderColour = props.borderColour
+        borderType = props.borderType
+        fillColour = props.fillColour
+
         return
 
-class TriangleCommand:
-    def __init__(self):
-        self.dimensions = {baseLength: 100, height: 100}
+class TriangleCommand(Command):
+    def __init__(self, props):
+        self.dimensions = {BASELENGTH: 100, HEIGHT: 100}
+        self.props = props
 
     def execute(self, turtle):
+        borderColour = props.borderColour
+        borderType = props.borderType
+        fillColour = props.fillColour
+
         return
