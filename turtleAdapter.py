@@ -6,10 +6,21 @@ class TurtleAdapter:
     def __init__(self, x, y):
         turtle.goto(x, y)
         turtle.width(3)
+        turtle.speed(8)
+        self.screen = turtle.getscreen()
+        self.moveTurtleToStartingPoint()
+        
+    # record turtle starting point before drawing
 
-    def moveTo(self, x, y):
-        turtle.penup()
-        turtle.goto(x, y)
+    def moveTurtleToStartingPoint(self):
+        screen = self.screen
+        screenSize = screen.screensize()
+        x = ((screenSize[0] // 2) * -1) + 10
+        y = ((screenSize[1] // 2) - 10)
+        turtle.teleport(x, y)
+
+    def teleport(self, x, y):
+        turtle.teleport(x, y)
 
     def getCurrentPos(self):
         turtle.pos()
