@@ -6,7 +6,7 @@ class TurtleAdapter:
     def __init__(self, x, y):
         turtle.goto(x, y)
         turtle.width(3)
-        turtle.speed(8)
+        turtle.speed(10)
         self.screen = turtle.getscreen()
         self.moveTurtleToStartingPoint()
         
@@ -24,6 +24,9 @@ class TurtleAdapter:
 
     def getCurrentPos(self):
         turtle.pos()
+
+    def setHeading(self, heading):
+        turtle.setheading(heading)
 
     def selectBorderColour(self, colour):
         turtle.color(colour)
@@ -61,11 +64,3 @@ class TurtleAdapter:
 
     def enterViewMode(self):
         turtle.done()
-
-myTurtle = TurtleAdapter(0, 0)
-
-for i in range(4):
-    myTurtle.drawLine(100, True)
-    myTurtle.turnRight(90)
-
-myTurtle.enterViewMode()
