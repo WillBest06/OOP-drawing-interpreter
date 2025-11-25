@@ -4,36 +4,49 @@ class Command:
 
 class SquareCommand(Command):
     def __init__(self, props):
-        self.dimensions = {SIDELENGTH: 100}
+        self.side_length = 100
         self.props = props
 
     def execute(self, turtle):
-        borderColour = props.borderColour
-        borderType = props.borderType
-        fillColour = props.fillColour
+        turtle.selectBorderColour(self.props.borderColour)
+        turtle.selectFillColour(self.props.fillColour)
+        borderType = self.props.borderType
 
-        return
+        dashed = True if borderType == "dashed" else False
+            
+        for i in range(4):
+            turtle.drawLine(self.side_length, dashed)
+            turtle.turnRight(90)
+
+        style = "dashed" if borderType == "dashed" else "solid"
+        return f"Drew a {self.props.fillColour} square with a {style} {self.props.borderColour} border"
 
 class CircleCommand(Command):        
     def __init__(self, props):
-        self.dimensions = {DIAMETER: 100}
+        self.radius = 50
         self.props = props
 
     def execute(self, turtle):
-        borderColour = props.borderColour
+        turtle.selectBorderColour(self.props.borderColour)
+        turtle.selectFillColour(self.props.fillColour)
         borderType = props.borderType
-        fillColour = props.fillColour
 
-        return
+        turtle.drawCircle(radius)
+
+        style = "dashed" if borderType == "dashed" else "solid"
+        return f"Drew a {self.props.fillColour} circle with a {style} {self.props.borderColour} border"
 
 class TriangleCommand(Command):
     def __init__(self, props):
-        self.dimensions = {BASELENGTH: 100, HEIGHT: 100}
+        self.side_length = 100
         self.props = props
 
     def execute(self, turtle):
-        borderColour = props.borderColour
+        turtle.selectBorderColour(self.props.borderColour)
+        turtle.selectFillColour(self.props.fillColour)
         borderType = props.borderType
-        fillColour = props.fillColour
 
-        return
+        
+
+        style = "dashed" if borderType == "dashed" else "solid"
+        return f"Drew a {self.props.fillColour} triangle with a {style} {self.props.borderColour} border"
