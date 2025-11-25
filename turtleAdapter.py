@@ -53,6 +53,12 @@ class TurtleAdapter:
     def turnLeft(self, degrees):
         turtle.left(degrees)
 
+    def startFill(self):
+        turtle.begin_fill()
+
+    def endFill(self):
+        turtle.end_fill()
+
     def enterViewMode(self):
         turtle.done()
 
