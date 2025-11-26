@@ -28,11 +28,8 @@ class TurtleAdapter:
     def setHeading(self, heading):
         turtle.setheading(heading)
 
-    def selectBorderColour(self, colour):
-        turtle.pencolor(colour)
-
-    def selectFillColour(self, colour):
-        turtle.fillcolor(colour)
+    def selectShapeColours(self, borderColour, fillColour):
+        turtle.color(borderColour, fillColour)
 
     def drawLine(self, length, dashed):
         if dashed:

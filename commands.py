@@ -10,8 +10,7 @@ class SquareCommand(Command):
         self.props = props
 
     def execute(self, turtle):
-        turtle.selectBorderColour(self.props["borderColour"])
-        turtle.selectFillColour(self.props["fillColour"])
+        turtle.selectShapeColours(self.props["borderColour"], self.props["fillColour"])
         borderType = self.props["borderType"]
 
         dashed = True if borderType == "dashed" else False
@@ -36,8 +35,7 @@ class CircleCommand(Command):
         self.props = props
 
     def execute(self, turtle):
-        turtle.selectBorderColour(self.props["borderColour"])
-        turtle.selectFillColour(self.props["fillColour"])
+        turtle.selectShapeColours(self.props["borderColour"], self.props["fillColour"])
         borderType = self.props["borderType"]
 
         turtle.drawCircle(radius)
@@ -51,8 +49,7 @@ class TriangleCommand(Command):
         self.props = props
 
     def execute(self, turtle):
-        turtle.selectBorderColour(self.props["borderColour"])
-        turtle.selectFillColour(self.props["fillColour"])
+        turtle.selectShapeColours(self.props["borderColour"], self.props["fillColour"])
         borderType = self.props["borderType"]
 
         dashed = True if borderType == "dashed" else False
