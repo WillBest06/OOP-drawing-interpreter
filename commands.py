@@ -4,97 +4,96 @@ class Command:
     def execute(self, turtle):
         raise NotImplementedError("Child commands need something to execute")
 
+    def colourSetup(self, turtle):
+        turtle.selectShapeColours(self.props["borderColour"], self.props["fillColour"])
+
+    def isDashed(self):
+        return self.props["borderType"] == "dashed"
+
+    def __str__(self):
+        return f"Command for a {self.props["fillColour"]} {self.shape} with a {self.props["borderType"]} {self.props["borderColour"]} border"
+
 
 class NewLineCommand(Command):
-    def execute(self, turtle):
-        screen = turtle.screen
+    def execute(self, turtleAdapter):
+        screen = turtleAdapter.screen
         screenX, screenY = screen.screensize()
         # origin is in center of screen so left
         # is negative half of screen size from origin
         screenLeft = (screenX / 2) * -1
-        currentX, currentY = turtle.getCurrentPos()
-        turtle.teleport(screenLeft + turtle.padding, currentY - 130)
+        currentX, currentY = turtleAdapter.getCurrentPos()
+        turtleAdapter.teleport(screenLeft + turtleAdapter.padding, currentY - 130)
 
 
 class SquareCommand(Command):
     def __init__(self, props):
         self.side_length = 100
         self.props = props
+        self.shape = "square"
 
-    def execute(self, turtle):
-        turtle.selectShapeColours(self.props["borderColour"], self.props["fillColour"])
-        borderType = self.props["borderType"]
+    def execute(self, turtleAdapter):
+        self.colourSetup(turtleAdapter)
 
-        dashed = True if borderType == "dashed" else False
+        dashed = self.isDashed()
           
-        turtle.setHeading(90)
-        turtle.startFill()
+        turtleAdapter.setHeading(90)
+        turtleAdapter.startFill()
         for i in range(4):
-            turtle.drawLine(self.side_length, dashed)
-            turtle.turnRight(90)
-        turtle.endFill()
+            turtleAdapter.drawLine(self.side_length, dashed)
+            turtleAdapter.turnRight(90)
+        turtleAdapter.endFill()
 
         # moves turtle to top left corner of next space
-        x, y = turtle.getCurrentPos()
-        turtle.teleport(x + 130, y)
-
-        style = "dashed" if borderType == "dashed" else "solid"
-        return f"Drew a {self.props["fillColour"]} square with a {style} {self.props["borderColour"]} border"
+        x, y = turtleAdapter.getCurrentPos()
+        turtleAdapter.teleport(x + 130, y)
 
 class CircleCommand(Command):        
     def __init__(self, props):
         self.radius = 50
         self.props = props
+        self.shape = "circle"
 
-    def execute(self, turtle):
-        turtle.selectShapeColours(self.props["borderColour"], self.props["fillColour"])
-        borderType = self.props["borderType"]
+    def execute(self, turtleAdapter):
+        self.colourSetup(turtleAdapter)
+        dashed = self.isDashed()
 
-        turtle.drawCircle(radius)
-
-        style = "dashed" if borderType == "dashed" else "solid"
-        return f"Drew a {self.props["fillColour"]} circle with a {style} {self.props["borderColour"]} border"
+        turtleAdapter.drawCircle(radius)
 
 class TriangleCommand(Command):
     def __init__(self, props):
         self.side_length = 115
         self.props = props
+        self.shape = "triangle"
 
-    def execute(self, turtle):
-        turtle.selectShapeColours(self.props["borderColour"], self.props["fillColour"])
-        borderType = self.props["borderType"]
-
-        dashed = True if borderType == "dashed" else False
+    def execute(self, turtleAdapter):
+        self.colourSetup(turtleAdapter)
+        dashed = self.isDashed()
 
         # starts drawing from middle 
-        x, y = turtle.getCurrentPos()
-        turtle.teleport(x + 50, y)
+        x, y = turtleAdapter.getCurrentPos()
+        turtleAdapter.teleport(x + 50, y)
         
-        turtle.setHeading(150)
+        turtleAdapter.setHeading(150)
 
-        turtle.startFill()
+        turtleAdapter.startFill()
         for i in range(3):
-            turtle.drawLine(self.side_length, dashed)
-            turtle.turnRight(120)
-        turtle.endFill()
+            turtleAdapter.drawLine(self.side_length, dashed)
+            turtleAdapter.turnRight(120)
+        turtleAdapter.endFill()
 
         # moves turtle to top left corner of next space
-        x, y = turtle.getCurrentPos()
-        turtle.teleport(x + 80, y)
-
-        style = "dashed" if borderType == "dashed" else "solid"
-        return f"Drew a {self.props["fillColour"]} triangle with a {style} {self.props["borderColour"]} border"
+        x, y = turtleAdapter.getCurrentPos()
+        turtleAdapter.teleport(x + 80, y)
 
 mySquare = SquareCommand({"borderColour": "black", "fillColour": "blue", "borderType": "solid"})
-myTurtle = turtleAdapter.TurtleAdapter()
-mySquare.execute(myTurtle)
+myTurtleAdapter = turtleAdapter.TurtleAdapter()
+mySquare.execute(myTurtleAdapter)
 
 myNewLine = NewLineCommand()
-myNewLine.execute(myTurtle)
-
+myNewLine.execute(myTurtleAdapter)
 
 myTriangle = TriangleCommand({"borderColour": "black", "fillColour": "blue", "borderType": "solid"})
-# myTurtle = turtleAdapter.TurtleAdapter()
-print(myTriangle.execute(myTurtle))
+myTriangle.execute(myTurtleAdapter)
+print(myTriangle)
 
-myTurtle.enterViewMode()
+myTurtleAdapter.enterViewMode()
