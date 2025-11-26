@@ -15,13 +15,17 @@ class SquareCommand(Command):
         borderType = self.props["borderType"]
 
         dashed = True if borderType == "dashed" else False
-            
+          
         turtle.setHeading(90)
         turtle.startFill()
         for i in range(4):
             turtle.drawLine(self.side_length, dashed)
             turtle.turnRight(90)
         turtle.endFill()
+
+        # moves turtle to top left corner of next space
+        x, y = turtle.getCurrentPos()
+        turtle.teleport(x + 130, y)
 
         style = "dashed" if borderType == "dashed" else "solid"
         return f"Drew a {self.props["fillColour"]} square with a {style} {self.props["borderColour"]} border"
@@ -53,8 +57,9 @@ class TriangleCommand(Command):
 
         dashed = True if borderType == "dashed" else False
 
-        # [x, y] = turtle.getCurrentPos()
-        # turtle.teleport(x + 50, y)
+        # starts drawing from middle 
+        x, y = turtle.getCurrentPos()
+        turtle.teleport(x + 50, y)
         
         turtle.setHeading(150)
 
@@ -63,6 +68,10 @@ class TriangleCommand(Command):
             turtle.drawLine(self.side_length, dashed)
             turtle.turnRight(120)
         turtle.endFill()
+
+        # moves turtle to top left corner of next space
+        x, y = turtle.getCurrentPos()
+        turtle.teleport(x + 80, y)
 
         style = "dashed" if borderType == "dashed" else "solid"
         return f"Drew a {self.props["fillColour"]} triangle with a {style} {self.props["borderColour"]} border"

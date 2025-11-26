@@ -23,7 +23,7 @@ class TurtleAdapter:
         turtle.teleport(x, y)
 
     def getCurrentPos(self):
-        turtle.pos()
+        return turtle.pos()
 
     def setHeading(self, heading):
         turtle.setheading(heading)
