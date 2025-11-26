@@ -3,8 +3,8 @@
 import turtle
 
 class TurtleAdapter:
-    def __init__(self, x, y):
-        turtle.goto(x, y)
+    def __init__(self):
+        turtle.mode("logo")
         turtle.width(3)
         turtle.speed(10)
         self.screen = turtle.getscreen()
@@ -29,7 +29,7 @@ class TurtleAdapter:
         turtle.setheading(heading)
 
     def selectBorderColour(self, colour):
-        turtle.color(colour)
+        turtle.pencolor(colour)
 
     def selectFillColour(self, colour):
         turtle.fillcolor(colour)
