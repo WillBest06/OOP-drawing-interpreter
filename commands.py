@@ -4,6 +4,18 @@ class Command:
     def execute(self, turtle):
         raise NotImplementedError("Child commands need something to execute")
 
+
+class NewLineCommand(Command):
+    def execute(self, turtle):
+        screen = turtle.screen
+        screenX, screenY = screen.screensize()
+        # origin is in center of screen so left
+        # is negative half of screen size from origin
+        screenLeft = (screenX / 2) * -1
+        currentX, currentY = turtle.getCurrentPos()
+        turtle.teleport(screenLeft + turtle.padding, currentY - 130)
+
+
 class SquareCommand(Command):
     def __init__(self, props):
         self.side_length = 100
@@ -76,6 +88,9 @@ class TriangleCommand(Command):
 mySquare = SquareCommand({"borderColour": "black", "fillColour": "blue", "borderType": "solid"})
 myTurtle = turtleAdapter.TurtleAdapter()
 mySquare.execute(myTurtle)
+
+myNewLine = NewLineCommand()
+myNewLine.execute(myTurtle)
 
 
 myTriangle = TriangleCommand({"borderColour": "black", "fillColour": "blue", "borderType": "solid"})

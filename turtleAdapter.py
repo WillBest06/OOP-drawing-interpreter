@@ -7,16 +7,20 @@ class TurtleAdapter:
         turtle.mode("logo")
         turtle.width(3)
         turtle.speed(10)
+        turtle.setup(1.0, 1.0)
+        turtle.screensize(turtle.window_width(), turtle.window_height())
         self.screen = turtle.getscreen()
+        self.padding = 50
         self.moveTurtleToStartingPoint()
+        
         
     # record turtle starting point before drawing
 
     def moveTurtleToStartingPoint(self):
         screen = self.screen
         screenSize = screen.screensize()
-        x = ((screenSize[0] // 2) * -1) + 10
-        y = ((screenSize[1] // 2) - 10)
+        x = ((screenSize[0] // 2) * -1) + self.padding
+        y = ((screenSize[1] // 2) - self.padding)
         turtle.teleport(x, y)
 
     def teleport(self, x, y):
