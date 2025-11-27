@@ -1,14 +1,19 @@
 import turtleAdapter  
 
 class Command:
-    def execute(self, turtle):
+    def execute(self, turtleAdapter):
         raise NotImplementedError("Child commands need something to execute")
 
-    def colourSetup(self, turtle):
-        turtle.selectShapeColours(self.props["borderColour"], self.props["fillColour"])
+    def colourSetup(self, turtleAdapter):
+        turtleAdapter.selectShapeColours(self.props["borderColour"], self.props["fillColour"])
 
     def isDashed(self):
         return self.props["borderType"] == "dashed"
+
+    def moveToMiddleOfBox(self, turtleAdapter):
+        # starts drawing from middle 
+        x, y = turtleAdapter.getCurrentPos()
+        turtleAdapter.teleport(x + 50, y)
 
     def __str__(self):
         return f"Command for a {self.props["fillColour"]} {self.shape} with a {self.props["borderType"]} {self.props["borderColour"]} border"
@@ -23,7 +28,6 @@ class NewLineCommand(Command):
         screenLeft = (screenX / 2) * -1
         currentX, currentY = turtleAdapter.getCurrentPos()
         turtleAdapter.teleport(screenLeft + turtleAdapter.padding, currentY - 130)
-
 
 class SquareCommand(Command):
     def __init__(self, props):
@@ -69,9 +73,7 @@ class TriangleCommand(Command):
         self.colourSetup(turtleAdapter)
         dashed = self.isDashed()
 
-        # starts drawing from middle 
-        x, y = turtleAdapter.getCurrentPos()
-        turtleAdapter.teleport(x + 50, y)
+        self.moveToMiddleOfBox(turtleAdapter)
         
         turtleAdapter.setHeading(150)
 
