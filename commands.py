@@ -93,18 +93,3 @@ class TriangleCommand(Command):
         self.moveInsideCell(turtleAdapter, -50, 0)
 
         turtleAdapter.moveToTopLeftOfNextCell()
-
-mySquare = SquareCommand({"borderColour": "black", "fillColour": "blue", "borderType": "solid"})
-myTurtleAdapter = turtleAdapter.TurtleAdapter()
-mySquare.execute(myTurtleAdapter)
-
-myNewLine = NewLineCommand()
-myNewLine.execute(myTurtleAdapter)
-
-myTriangle = TriangleCommand({"borderColour": "black", "fillColour": "blue", "borderType": "solid"})
-myTriangle.execute(myTurtleAdapter)
-
-myCircle = CircleCommand({"borderColour": "black", "fillColour": "blue", "borderType": "dashed"})
-myCircle.execute(myTurtleAdapter)
-
-myTurtleAdapter.enterViewMode()

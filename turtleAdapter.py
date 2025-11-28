@@ -64,6 +64,7 @@ class TurtleAdapter:
                 turtle.forward(circumference / sides)
                 turtle.left(360/sides)
         else:
+            turtle.pendown()
             turtle.circle(radius)
 
     def turnRight(self, degrees):
