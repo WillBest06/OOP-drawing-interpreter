@@ -1,38 +1,21 @@
+import commands
+
 class Interpreter:
-    def __init__ (self, shapes):
-        self.shapes = shapes
+    def __init__ (self):
+        self.listOfCommandsToExecute = []
 
-    """ example params {
-            shape: square,
-            borderType: solid,
-            borderColour: black,
-            fillColour: blue,
-    }"""
+    def interpret(self, listOfParsedShapeProps):
+        for shapeProps in listOfParsedShapeProps:
+            match shapeProps["shape"]:
+                case "new_line":
+                    command = commands.NewLineCommand()
+                case "square":
+                    command = commands.SquareCommand(shapeProps)
+                case "circle":
+                    command = commands.CircleCommand(shapeProps)
+                case "triangle":
+                    command = commands.TriangleCommand(shapeProps)
 
-    def interpretLine(self, line):
-        objectList = []
-
-        for char in line:
-            shapeParams = {
-                "shape": None,
-                "borderType": "solid",
-                "borderColour": "#000000",
-                "fillColour": "",
-            }
-
-            shapeParams["shape"] = self.shapes[char.lower()]
-            objectList.append(shapeParams)
-
-        return objectList
-
-exampleLine = "ssctt "
-
-correspondingShapes = {
-    "s": "square", 
-    "c": "circle",
-    "t": "triangle"
-}
-
-myInterpreter = Interpreter(correspondingShapes)
-
-print(myInterpreter.interpretLine(exampleLine))
+            self.listOfCommandsToExecute.append(command)
+        
+        return self.listOfCommandsToExecute
