@@ -39,6 +39,8 @@ class SimpleParser(Parser):
 
         return newProps
 
+
+# for shapes with any border and fill colour
 class ComplexParser(Parser):
     def loopThroughEachValue(self, file):
         for line in file:
