@@ -10,14 +10,12 @@ class Command:
     def isDashed(self):
         return self.props["borderType"] == "dashed"
 
-    def moveToMiddleOfBox(self, turtleAdapter):
-        # starts drawing from middle 
+    def moveInsideCell(self, turtleAdapter, xOffset, yOffset):
         x, y = turtleAdapter.getCurrentPos()
-        turtleAdapter.teleport(x + 50, y)
+        turtleAdapter.teleport(x + xOffset, y + yOffset)
 
     def __str__(self):
         return f"Command for a {self.props["fillColour"]} {self.shape} with a {self.props["borderType"]} {self.props["borderColour"]} border"
-
 
 class NewLineCommand(Command):
     def execute(self, turtleAdapter):
@@ -47,9 +45,7 @@ class SquareCommand(Command):
             turtleAdapter.turnRight(90)
         turtleAdapter.endFill()
 
-        # moves turtle to top left corner of next space
-        x, y = turtleAdapter.getCurrentPos()
-        turtleAdapter.teleport(x + 130, y)
+        turtleAdapter.moveToTopLeftOfNextCell()
 
 class CircleCommand(Command):        
     def __init__(self, props):
@@ -60,8 +56,18 @@ class CircleCommand(Command):
     def execute(self, turtleAdapter):
         self.colourSetup(turtleAdapter)
         dashed = self.isDashed()
+        turtleAdapter.setHeading(0)
 
-        turtleAdapter.drawCircle(radius)
+        self.moveInsideCell(turtleAdapter, 0, -50)
+
+        turtleAdapter.startFill()
+        turtleAdapter.drawCircle(-1 * self.radius, dashed)
+        turtleAdapter.endFill()
+
+        # moves turtle to top left corner of current cell
+        self.moveInsideCell(turtleAdapter, 0, 50)
+
+        turtleAdapter.moveToTopLeftOfNextCell()
 
 class TriangleCommand(Command):
     def __init__(self, props):
@@ -73,7 +79,7 @@ class TriangleCommand(Command):
         self.colourSetup(turtleAdapter)
         dashed = self.isDashed()
 
-        self.moveToMiddleOfBox(turtleAdapter)
+        self.moveInsideCell(turtleAdapter, 50, 0)
         
         turtleAdapter.setHeading(150)
 
@@ -83,9 +89,10 @@ class TriangleCommand(Command):
             turtleAdapter.turnRight(120)
         turtleAdapter.endFill()
 
-        # moves turtle to top left corner of next space
-        x, y = turtleAdapter.getCurrentPos()
-        turtleAdapter.teleport(x + 80, y)
+        # moves turtle to top left corner of current cell
+        self.moveInsideCell(turtleAdapter, -50, 0)
+
+        turtleAdapter.moveToTopLeftOfNextCell()
 
 mySquare = SquareCommand({"borderColour": "black", "fillColour": "blue", "borderType": "solid"})
 myTurtleAdapter = turtleAdapter.TurtleAdapter()
@@ -96,6 +103,8 @@ myNewLine.execute(myTurtleAdapter)
 
 myTriangle = TriangleCommand({"borderColour": "black", "fillColour": "blue", "borderType": "solid"})
 myTriangle.execute(myTurtleAdapter)
-print(myTriangle)
+
+myCircle = CircleCommand({"borderColour": "black", "fillColour": "blue", "borderType": "dashed"})
+myCircle.execute(myTurtleAdapter)
 
 myTurtleAdapter.enterViewMode()

@@ -23,6 +23,10 @@ class TurtleAdapter:
         y = ((screenSize[1] // 2) - self.padding)
         turtle.teleport(x, y)
 
+    def moveToTopLeftOfNextCell(self):
+        x, y = turtle.pos()
+        turtle.teleport(x + 130, y)
+
     def teleport(self, x, y):
         turtle.teleport(x, y)
 
@@ -48,8 +52,19 @@ class TurtleAdapter:
             turtle.forward(length)
             turtle.penup()
 
-    def drawCircle(self, radius):
-        turtle.circle(radius)
+    def drawCircle(self, radius, dashed):
+        circumference = 3.14159 * (radius * 2)
+
+        if dashed:
+            sides = 20
+            for i in range(sides):
+                turtle.pendown()
+                if i % 2 == 0: turtle.penup()
+
+                turtle.forward(circumference / sides)
+                turtle.left(360/sides)
+        else:
+            turtle.circle(radius)
 
     def turnRight(self, degrees):
         turtle.right(degrees)
