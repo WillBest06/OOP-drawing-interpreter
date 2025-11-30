@@ -5,11 +5,10 @@ import turtleAdapter
 class Controller:
     def __init__(self):
         self.myTurtleAdapter = turtleAdapter.TurtleAdapter()
+
+        # For printing red text
         self.RED = '\033[91m'
         self.RESET = '\033[0m'
-
-# Print the text in red
-
 
     def run(self):
         parserType = None
@@ -42,7 +41,6 @@ class Controller:
             cmd.execute(self.myTurtleAdapter)
 
         self.myTurtleAdapter.enterViewMode()
-
 
 if __name__ == "__main__":
     myController = Controller()
