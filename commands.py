@@ -27,6 +27,11 @@ class NewLineCommand(Command):
         currentX, currentY = turtleAdapter.getCurrentPos()
         turtleAdapter.teleport(screenLeft + turtleAdapter.padding, currentY - 130)
 
+class BlankSpaceCommand(Command):
+    def execute(self, turtleAdapter):
+        currentX, currentY = turtleAdapter.getCurrentPos()
+        turtleAdapter.teleport(currentX + 130, currentY) 
+
 class SquareCommand(Command):
     def __init__(self, props):
         self.side_length = 100

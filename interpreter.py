@@ -9,6 +9,8 @@ class Interpreter:
             match shapeProps["shape"]:
                 case "new_line":
                     command = commands.NewLineCommand()
+                case "blank_space":
+                    command = commands.BlankSpaceCommand()
                 case "square":
                     command = commands.SquareCommand(shapeProps)
                 case "circle":
